@@ -679,17 +679,16 @@ with tab1:
         st.markdown('<div class="section-sub">Enter any sentence to analyse its emotion</div>', unsafe_allow_html=True)
 
         user_text = st.text_area(
-            "Input",
+            "Enter text to analyse",
             value=st.session_state["predict_default"],
-            label_visibility="collapsed",
+            label_visibility="hidden",
             height=180,
             placeholder="Type something here…",
-            label_visibility="collapsed"
         )
 
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
-            analyse_btn = st.button("⚡ ANALYSE", use_container_width=True)
+            analyse_btn = st.button("⚡ ANALYSE", width='stretch')
         with col_btn2:
             batch_mode = st.toggle("Batch mode", value=False)
 
@@ -774,7 +773,7 @@ with tab1:
                                categoryorder='total ascending'),
                     bargap=0.35,
                 )
-                st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+                st.plotly_chart(fig, width='stretch', config={"displayModeBar": False})
 
                 if batch_mode:
                     st.markdown("---")
@@ -805,7 +804,7 @@ with tab1:
     cols = st.columns(3)
     for idx, (label, ex_text) in enumerate(examples):
         with cols[idx % 3]:
-            if st.button(label, key=f"ex_{idx}", use_container_width=True):
+            if st.button(label, key=f"ex_{idx}", width='stretch'):
                 # FIX: set both the text AND the auto-analyse flag, then rerun.
                 # On the next render the text area is pre-filled with the example
                 # and analyse_btn is forced True, so the prediction fires immediately.
@@ -893,7 +892,7 @@ with tab2:
                 ),
                 bargap=0.35,
             )
-            st.plotly_chart(fig_cv, use_container_width=True, config={"displayModeBar": False})
+            st.plotly_chart(fig_cv, width='stretch', config={"displayModeBar": False})
 
     st.markdown(f"""
     <div style="font-family:'Space Mono',monospace;font-size:0.72rem;color:#6b728e;margin-bottom:1.5rem">
@@ -920,7 +919,7 @@ with tab2:
             height=380, coloraxis_showscale=False,
         )
         fig_cm.update_traces(textfont=dict(family="Space Mono", size=13))
-        st.plotly_chart(fig_cm, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_cm, width='stretch', config={"displayModeBar": False})
 
     with col_right:
         st.markdown("#### Dataset Class Distribution")
@@ -940,7 +939,7 @@ with tab2:
             xaxis=dict(showgrid=False, tickfont=dict(family="Space Mono", size=11)),
             yaxis=dict(showgrid=True, gridcolor="#1c2030"), bargap=0.4,
         )
-        st.plotly_chart(fig_dist, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_dist, width='stretch', config={"displayModeBar": False})
 
         st.markdown("#### Per-class F1 · Ensemble")
         cr = R["cr_svm"]
@@ -960,7 +959,7 @@ with tab2:
             xaxis=dict(showgrid=False, tickfont=dict(family="Space Mono", size=11)),
             yaxis=dict(showgrid=True, gridcolor="#1c2030", range=[0, 1.15]), bargap=0.4,
         )
-        st.plotly_chart(fig_f1, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_f1, width='stretch', config={"displayModeBar": False})
 
     st.markdown("#### All Model Accuracy Comparison")
     model_names = list(R["acc"].keys())
@@ -988,7 +987,7 @@ with tab2:
                    range=[max(0, min(accs) - 10), min(100, max(accs) + 10)]),
         bargap=0.4,
     )
-    st.plotly_chart(fig_bar, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig_bar, width='stretch', config={"displayModeBar": False})
     
 
     st.markdown("""
@@ -1050,7 +1049,7 @@ with tab3:
         yaxis=dict(showgrid=True, gridcolor="#1c2030", range=[0, 1.2]),
         bargap=0.25, bargroupgap=0.1,
     )
-    st.plotly_chart(fig_cmp, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig_cmp, width='stretch', config={"displayModeBar": False})
 
     st.markdown("#### F1 Score Delta per Emotion")
     delta_rows = []
@@ -1064,7 +1063,7 @@ with tab3:
             "Winner":  "LinearSVC" if delta > 0 else ("Tie" if delta == 0 else "LR"),
         })
     delta_df = pd.DataFrame(delta_rows)
-    st.dataframe(delta_df, use_container_width=True, hide_index=True,
+    st.dataframe(delta_df, width='stretch', hide_index=True,
                  column_config={
                      "Emotion": st.column_config.TextColumn(width="medium"),
                      "LR F1":   st.column_config.TextColumn(width="small"),
@@ -1095,7 +1094,7 @@ with tab3:
                 height=340, coloraxis_showscale=False,
             )
             fig_c.update_traces(textfont=dict(family="Space Mono", size=11))
-            st.plotly_chart(fig_c, use_container_width=True, config={"displayModeBar": False})
+            st.plotly_chart(fig_c, width='stretch', config={"displayModeBar": False})
 
     st.markdown("---")
     st.markdown("#### Full Classification Report · Ensemble")
@@ -1109,7 +1108,7 @@ with tab3:
             "F1-Score":  f"{v.get('f1-score', 0):.3f}",
             "Support":   int(v.get('support', 0)),
         })
-    st.dataframe(pd.DataFrame(cr_rows), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(cr_rows), width='stretch', hide_index=True)
 
 
     st.markdown("""
@@ -1242,7 +1241,7 @@ with tab4:
                     yaxis=dict(showgrid=False, tickfont=dict(family="Space Mono", size=11),
                                categoryorder='total ascending'),
                 )
-                st.plotly_chart(fig_w, use_container_width=True, config={"displayModeBar": False})
+                st.plotly_chart(fig_w, width='stretch', config={"displayModeBar": False})
                 st.markdown("""
                 <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:#4ecdc4">
                   ✦ Teal bars = bigram features (NEW) · Blue = unigrams
@@ -1300,7 +1299,7 @@ with tab5:
 
     st.dataframe(
         df_view.head(n_rows).reset_index(drop=True),
-        use_container_width=True, height=380,
+        width='stretch', height=380,
         column_config={
             "text":       st.column_config.TextColumn("Raw Text",        width="large"),
             "clean_text": st.column_config.TextColumn("Preprocessed ✦", width="large"),
@@ -1335,7 +1334,7 @@ with tab5:
             xaxis=dict(showgrid=False, tickfont=dict(family="Space Mono", size=10)),
             yaxis=dict(showgrid=True, gridcolor="#1c2030"), bargap=0.35,
         )
-        st.plotly_chart(fig_wf, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_wf, width='stretch', config={"displayModeBar": False})
         st.markdown("""
         <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:#6b728e">
           ✦ Words shown are post-stopword-removal from the clean_text column

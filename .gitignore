@@ -1,0 +1,6 @@
+.ipynb_checkpoints
+appInitial.py
+emotions_nlp.py
+best emotion_model.pkl
+label_encoder.pkl
+tfidf_vectorizer.pkl

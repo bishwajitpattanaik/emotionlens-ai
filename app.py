@@ -679,8 +679,9 @@ with tab1:
         st.markdown('<div class="section-sub">Enter any sentence to analyse its emotion</div>', unsafe_allow_html=True)
 
         user_text = st.text_area(
-            "",
+            "Input",
             value=st.session_state["predict_default"],
+            label_visibility="collapsed",
             height=180,
             placeholder="Type something here…",
             label_visibility="collapsed"

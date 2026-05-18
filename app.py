@@ -688,7 +688,7 @@ with tab1:
 
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
-            analyse_btn = st.button("⚡ ANALYSE", width='stretch')
+           analyse_btn = st.button("⚡ ANALYSE", use_container_width=True)
         with col_btn2:
             batch_mode = st.toggle("Batch mode", value=False)
 
